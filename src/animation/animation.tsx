@@ -2,16 +2,17 @@ import { useEffect, useRef } from 'react'
 import lottie from 'lottie-web'
 import RestingAnimation from 'ui/animations/resting.json'
 import WorkingAnimation from 'ui/animations/working.json'
+import { Category } from 'resources/activity/types'
 import * as S from './animation-style'
-
-type Category = 'work' | 'break'
 
 type AnimationProps = {
   currentCategory: Category
+  isRunning: boolean
 }
 
 export function Animation ({
   currentCategory,
+  isRunning,
 }: AnimationProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const animationData =
@@ -24,7 +25,7 @@ export function Animation ({
         animationData: animationData,
         renderer: 'svg',
         loop: true,
-        autoplay: true,
+        autoplay: false,
         name: 'animation',
         rendererSettings: {
           preserveAspectRatio: 'xMidYMid meet',
@@ -34,6 +35,14 @@ export function Animation ({
 
     return () => lottie.destroy('animation')
   }, [animationData, containerRef])
+
+  useEffect(() => {
+    if (isRunning) {
+      lottie.play('animation')
+    } else {
+      lottie.pause('animation')
+    }
+  }, [isRunning])
 
   return (
     <S.Wrapper>

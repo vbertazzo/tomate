@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components/macro'
-import { ArrowRight, Pause, Reset } from 'ui/icons'
+import { ArrowRight, Pause, Reset, Play } from 'ui/icons'
 
 export const Main = styled.main`${({ theme }) => css`
   background: ${theme.colors.background};
@@ -51,6 +51,7 @@ export const CurrentActivity = styled.h1`
   font-size: clamp(2.4rem, 5vw, 4.8rem);
   font-weight: ${({ theme }) => theme.font.weights.regular};
   text-align: center;
+  text-transform: capitalize;
 `
 
 export const Timer = styled.h2`
@@ -133,3 +134,5 @@ export const PauseIcon = styled(Pause)``
 export const ResetIcon = styled(Reset)`
   width: 2rem;
 `
+
+export const PlayIcon = styled(Play)``

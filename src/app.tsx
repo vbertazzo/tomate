@@ -1,20 +1,51 @@
 import { Animation } from 'animation'
+import { Fragment, useEffect } from 'react'
+import { useActivity } from 'resources/activity/use-activity'
+import { useTimer } from 'resources/timer/use-timer'
 import { ButtonDefault } from 'ui/button-default'
 
 import * as S from './app-style'
 
 export function App () {
+  const {
+    nextActivities,
+    currentActivity,
+    markActivityComplete,
+  } = useActivity()
+  const {
+    timer,
+    isTimerRunning,
+    isTimerComplete,
+    startTimer,
+    pauseTimer,
+    resetTimer,
+    setTimerDuration,
+  } = useTimer()
+
+  useEffect(() => {
+    if (isTimerComplete) {
+      markActivityComplete()
+    }
+  }, [isTimerComplete, markActivityComplete])
+
+  useEffect(() => {
+    setTimerDuration(currentActivity.durationInSeconds)
+  }, [currentActivity, setTimerDuration])
+
   return (
     <S.Main>
       <S.Divider />
 
       <S.ActivityHeader>
-        <S.CurrentActivity>Working</S.CurrentActivity>
+        <S.CurrentActivity>{currentActivity.category}</S.CurrentActivity>
       </S.ActivityHeader>
 
-      <S.Timer>25:00</S.Timer>
+      <S.Timer>{timer.minutes}:{timer.seconds}</S.Timer>
 
-      <Animation currentCategory='work' />
+      <Animation
+        currentCategory={currentActivity.category}
+        isRunning={isTimerRunning}
+      />
 
       <S.Schedule>
         <S.ScheduleHeader>
@@ -23,35 +54,54 @@ export function App () {
         </S.ScheduleHeader>
 
         <S.ActivityList>
-          <S.ActivityItem>
-            <S.ActivityItemTime>10</S.ActivityItemTime>
-            <S.ActivityItemCategory>break</S.ActivityItemCategory>
-          </S.ActivityItem>
+          {nextActivities.map((activity, index) =>
+            <Fragment key={activity.id}>
+              <S.ActivityItem>
+                <S.ActivityItemTime>
+                  {activity.durationInSeconds / 60 < 1
+                    ? activity.durationInSeconds
+                    : activity.durationInSeconds / 60}
+                </S.ActivityItemTime>
+                <S.ActivityItemCategory>
+                  {activity.category}
+                </S.ActivityItemCategory>
+              </S.ActivityItem>
 
-          <S.ArrowRightIcon aria-hidden='true' focusable='false' />
+              {index <= 1 &&
+                <S.ArrowRightIcon aria-hidden='true' focusable='false' />}
 
-          <S.ActivityItem>
-            <S.ActivityItemTime>25</S.ActivityItemTime>
-            <S.ActivityItemCategory>work</S.ActivityItemCategory>
-          </S.ActivityItem>
-
-          <S.ArrowRightIcon aria-hidden='true' focusable='false' />
-
-          <S.ActivityItem>
-            <S.ActivityItemTime>10</S.ActivityItemTime>
-            <S.ActivityItemCategory>break</S.ActivityItemCategory>
-          </S.ActivityItem>
+            </Fragment>,
+          )}
         </S.ActivityList>
       </S.Schedule>
 
       <S.Actions>
         <S.VisuallyHiddenH3>Actions</S.VisuallyHiddenH3>
-        <ButtonDefault>
-          <S.PauseIcon aria-hidden='true' focusable='false' />
-          Pause
-        </ButtonDefault>
-        <ButtonDefault>
-          <S.ResetIcon aria-hidden='true' focusable='false' />
+        {isTimerRunning
+          ? (
+            <ButtonDefault onClick={pauseTimer}>
+              <S.PauseIcon
+                aria-hidden='true'
+                focusable='false'
+              />
+              Pause
+            </ButtonDefault>
+            )
+          : (
+            <ButtonDefault onClick={startTimer}>
+              <S.PlayIcon
+                aria-hidden='true'
+                focusable='false'
+              />
+              Play
+            </ButtonDefault>
+            )}
+
+        <ButtonDefault onClick={() => resetTimer(currentActivity.durationInSeconds)}>
+          <S.ResetIcon
+            aria-hidden='true'
+            focusable='false'
+          />
           Reset
         </ButtonDefault>
       </S.Actions>
