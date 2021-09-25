@@ -7,12 +7,13 @@ export const theme = {
     gray: '#E4E5E7',
     white: '#FAFAFA',
     primary: '#FACC15',
+    primaryDark: '#A68A1E',
     secondary: '#36E99E',
   },
   font: {
     family: 'Roboto',
     weights: {
-      normal: 400,
+      regular: 400,
       medium: 500,
     },
   },
