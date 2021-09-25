@@ -1,3 +1,4 @@
+import { Animation } from 'animation'
 import { ButtonDefault } from 'ui/button-default'
 
 import * as S from './app-style'
@@ -5,11 +6,15 @@ import * as S from './app-style'
 export function App () {
   return (
     <S.Main>
-      <header>
+      <S.Divider />
+
+      <S.ActivityHeader>
         <S.CurrentActivity>Working</S.CurrentActivity>
-      </header>
+      </S.ActivityHeader>
 
       <S.Timer>25:00</S.Timer>
+
+      <Animation currentCategory='work' />
 
       <S.Schedule>
         <S.ScheduleHeader>

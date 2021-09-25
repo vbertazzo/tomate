@@ -3,50 +3,76 @@ import { ArrowRight, Pause, Reset } from 'ui/icons'
 
 export const Main = styled.main`${({ theme }) => css`
   background: ${theme.colors.background};
+  min-height: 100vh;
+  padding: 2.4rem;
+
+  display: grid;
+  grid-template-columns: 1fr;
   grid-template-areas:
     'header'
     'timer'
     'animation'
-    'activities'
+    'schedule'
     'actions'
   ;
-  min-height: 100vh;
-  padding: 2.4rem;
 
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: space-around;
 
   @media (min-width: ${theme.breakpoints.forTabletLandscapeUp}) {
+    grid-template-columns: 1fr 1rem 1fr;
     grid-template-areas:
-      'animation' 'header'
-      'animation' 'timer'
-      'animation' 'activities'
-      'animation' 'actions'
+      'animation divider header'
+      'animation divider timer'
+      'animation divider schedule'
+      'animation divider actions'
     ;
+    align-items: center;
+    justify-content: center;
   }
 `}`
 
+export const Divider = styled.div`${({ theme }) => css`
+  display: none;
+
+  @media (min-width: ${theme.breakpoints.forTabletLandscapeUp}) {
+    background: ${theme.colors.gray};
+    display: block;
+    grid-area: divider;
+    height: 80%;
+    opacity: 0.3;
+    width: 1px;
+  }
+`}`
+
+export const ActivityHeader = styled.header`
+  grid-area: header;
+`
+
 export const CurrentActivity = styled.h1`
   font-size: clamp(2.4rem, 5vw, 4.8rem);
-  font-weight: ${({ theme }) => theme.font.weights.regular}
+  font-weight: ${({ theme }) => theme.font.weights.regular};
+  text-align: center;
 `
 
 export const Timer = styled.h2`
   color: ${({ theme }) => theme.colors.primary};
   font-size: clamp(4.8rem, 10vw, 7.2rem);
-  font-weight: ${({ theme }) => theme.font.weights.medium}
+  font-weight: ${({ theme }) => theme.font.weights.medium};
+  grid-area: timer;
+  text-align: center;
 `
 
 export const Schedule = styled.section`
   display: flex;
+  align-items: center;
   flex-direction: column;
   gap: clamp(2.4rem, 5vw, 3.6rem);
+  justify-content: center;
+  grid-area: schedule;
 `
 
 export const ScheduleHeader = styled.header`
   border-bottom: 1px solid ${({ theme }) => theme.colors.white};
+  width: max(50%, 24rem);
   padding-bottom: clamp(0.8rem, 5vw, 1.2rem);
 `
 
@@ -69,6 +95,7 @@ export const ActivityList = styled.ul`
   display: flex;
   align-items: center;
   gap: clamp(1.6rem, 5vw, 2.4rem);
+  justify-content: center;
 `
 
 export const ActivityItem = styled.li`
@@ -93,10 +120,12 @@ export const ActivityItemCategory = styled.p`
 `
 
 export const Actions = styled.section`
+  grid-area: actions;
+
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: clamp(1.6rem, 5vw, 3.2rem);
+  justify-content: center;
 `
 
 export const PauseIcon = styled(Pause)``
