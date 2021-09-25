@@ -8,8 +8,15 @@ export const Wrapper = styled.div`
   justify-content: center;
 `
 
-export const Illustration = styled.div`${({ theme }) => css`
-  height: 15rem;
+type IllustrationProps = {
+  shrink: boolean
+}
+
+export const Illustration = styled.div<IllustrationProps>`${({
+  theme,
+  shrink,
+}) => css`
+  max-width: ${shrink ? '65%' : '90%'};
 
   @media (min-width: ${theme.breakpoints.forTabletLandscapeUp}) {
     width: 90%;

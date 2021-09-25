@@ -46,7 +46,11 @@ export function Animation ({
 
   return (
     <S.Wrapper>
-      <S.Illustration ref={containerRef} aria-hidden='true' />
+      <S.Illustration
+        ref={containerRef}
+        aria-hidden='true'
+        shrink={currentCategory === 'break'}
+      />
     </S.Wrapper>
   )
 }

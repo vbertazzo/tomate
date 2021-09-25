@@ -5,9 +5,9 @@ export const ButtonDefault = styled.button`${({ theme }) => css`
   border: none;
   border-radius: 3rem;
   color: ${theme.colors.background};
-  font-size: clamp(1.6rem, 5vw, 2.2rem);
+  font-size: clamp(1.6rem, 5vw, 2rem);
   font-weight: ${theme.font.weights.medium};
-  padding: clamp(1.2rem, 3vw, 1.6rem);
+  padding: 1.2rem;
 
   display: flex;
   align-items: center;
