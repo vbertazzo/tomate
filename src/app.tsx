@@ -47,11 +47,11 @@ export function App () {
       <S.Actions>
         <S.VisuallyHiddenH3>Actions</S.VisuallyHiddenH3>
         <ButtonDefault>
-          <S.PauseIcon />
+          <S.PauseIcon aria-hidden='true' focusable='false' />
           Pause
         </ButtonDefault>
         <ButtonDefault>
-          <S.ResetIcon />
+          <S.ResetIcon aria-hidden='true' focusable='false' />
           Reset
         </ButtonDefault>
       </S.Actions>
