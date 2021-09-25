@@ -1,8 +1,9 @@
 import { Animation } from 'animation'
-import { Fragment, useEffect } from 'react'
+import { Fragment, useEffect, useMemo } from 'react'
 import { useActivity } from 'resources/activity/use-activity'
 import { useTimer } from 'resources/timer/use-timer'
 import { ButtonDefault } from 'ui/button-default'
+import audio from 'resources/audios/notification.mp3'
 
 import * as S from './app-style'
 
@@ -22,11 +23,14 @@ export function App () {
     setTimerDuration,
   } = useTimer()
 
+  const notificationAudio = useMemo(() => new Audio(audio), [])
+
   useEffect(() => {
     if (isTimerComplete) {
       markActivityComplete()
+      notificationAudio.play()
     }
-  }, [isTimerComplete, markActivityComplete])
+  }, [isTimerComplete, markActivityComplete, notificationAudio])
 
   useEffect(() => {
     setTimerDuration(currentActivity.durationInSeconds)
