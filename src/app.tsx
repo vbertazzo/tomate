@@ -1,52 +1,55 @@
-import styled, { css } from 'styled-components/macro'
+import { ButtonDefault } from 'ui/button-default'
+
+import * as S from './app-style'
 
 export function App () {
   return (
-    <Main>
+    <S.Main>
       <header>
-        <h1>Working</h1>
+        <S.CurrentActivity>Working</S.CurrentActivity>
       </header>
-      <h2>25:00</h2>
 
-      <section>
-        <header>
-          <h3>Activities</h3>
-          <h3>Next</h3>
-        </header>
-      </section>
+      <S.Timer>25:00</S.Timer>
 
-      <section>
-        <header>
-          <h3>Actions</h3>
-        </header>
-        <button>Pause</button>
-        <button>Reset</button>
-      </section>
-    </Main>
+      <S.Schedule>
+        <S.ScheduleHeader>
+          <S.VisuallyHiddenH3>Activities</S.VisuallyHiddenH3>
+          <S.ScheduleTitle>Next</S.ScheduleTitle>
+        </S.ScheduleHeader>
+
+        <S.ActivityList>
+          <S.ActivityItem>
+            <S.ActivityItemTime>10</S.ActivityItemTime>
+            <S.ActivityItemCategory>break</S.ActivityItemCategory>
+          </S.ActivityItem>
+
+          <S.ArrowRightIcon aria-hidden='true' focusable='false' />
+
+          <S.ActivityItem>
+            <S.ActivityItemTime>25</S.ActivityItemTime>
+            <S.ActivityItemCategory>work</S.ActivityItemCategory>
+          </S.ActivityItem>
+
+          <S.ArrowRightIcon aria-hidden='true' focusable='false' />
+
+          <S.ActivityItem>
+            <S.ActivityItemTime>10</S.ActivityItemTime>
+            <S.ActivityItemCategory>break</S.ActivityItemCategory>
+          </S.ActivityItem>
+        </S.ActivityList>
+      </S.Schedule>
+
+      <S.Actions>
+        <S.VisuallyHiddenH3>Actions</S.VisuallyHiddenH3>
+        <ButtonDefault>
+          <S.PauseIcon />
+          Pause
+        </ButtonDefault>
+        <ButtonDefault>
+          <S.ResetIcon />
+          Reset
+        </ButtonDefault>
+      </S.Actions>
+    </S.Main>
   )
 }
-
-const Main = styled.main`${({ theme }) => css`
-  background: ${theme.colors.background};
-  grid-template-areas:
-    'header'
-    'timer'
-    'animation'
-    'activities'
-    'actions'
-  ;
-  min-height: 100vh;
-
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-
-  @media (min-width: ${theme.breakpoints.forTabletLandscapeUp}) {
-    grid-template-areas:
-      'animation' 'header'
-      'animation' 'timer'
-      'animation' 'activities'
-      'animation' 'actions'
-    ;
-  }
-`}`
