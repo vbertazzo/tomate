@@ -1,4 +1,4 @@
-import { ThemeProvider, createGlobalStyle } from 'styled-components'
+import { ThemeProvider, createGlobalStyle, css } from 'styled-components'
 import { App } from './app'
 import { theme } from 'resources/theme'
 
@@ -13,15 +13,18 @@ export function Root () {
   )
 }
 
-const GlobalStyle = createGlobalStyle`
-  * {
+const GlobalStyle = createGlobalStyle`${({ theme }) => css`
+* {
     box-sizing: border-box;
   }
+
   html {
     font-size: 62.5%;
   }
+
   body {
     font-family: 'Roboto', sans-serif;
     font-size: 1.6rem;
+    color: ${theme.colors.white}
   }
-`
+`}`
