@@ -2,7 +2,7 @@
   <img src="./src/settings/tomate-logo.svg" />
 </div>
 
-<h1 align='center'>a pomodoro app</h1>
+<h2 align='center'>a pomodoro app</h2>
 
 <div align="center">
   <img src="https://res.cloudinary.com/voss/image/upload/v1632682793/readme_logos/tomate-desktop_vflryq.png" alt="Tomate Desktop" width="60%" />
