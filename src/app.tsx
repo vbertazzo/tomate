@@ -2,7 +2,9 @@ import { Animation } from 'animation'
 import { Fragment, useEffect, useMemo } from 'react'
 import { useActivity } from 'resources/activity/use-activity'
 import { useTimer } from 'resources/timer/use-timer'
+import { useModal } from 'resources/settings/use-modal'
 import { ButtonDefault } from 'ui/button-default'
+import { Settings } from 'settings'
 import audio from 'resources/audios/notification.mp3'
 
 import * as S from './app-style'
@@ -12,6 +14,7 @@ export function App () {
     nextActivities,
     currentActivity,
     markActivityComplete,
+    generateActivities,
   } = useActivity()
   const {
     timer,
@@ -22,6 +25,11 @@ export function App () {
     resetTimer,
     setTimerDuration,
   } = useTimer()
+  const {
+    isModalVisible,
+    showModal,
+    hideModal,
+  } = useModal()
 
   const notificationAudio = useMemo(() => new Audio(audio), [])
 
@@ -36,8 +44,21 @@ export function App () {
     setTimerDuration(currentActivity.durationInSeconds)
   }, [currentActivity, setTimerDuration])
 
+  const handleSave = (config: { work: number, break: number }) => {
+    generateActivities(config)
+    resetTimer(currentActivity.durationInSeconds)
+    hideModal()
+  }
+
   return (
     <S.Main>
+      {isModalVisible && <Settings onSave={handleSave} />}
+
+      <S.SettingsButton onClick={showModal} aria-labelledby='settings-label'>
+        <S.SettingsIcon aria-hidden='true' focusable='false' />
+        <span id='settings-label' hidden>Settings</span>
+      </S.SettingsButton>
+
       <S.Divider />
 
       <S.ActivityHeader>

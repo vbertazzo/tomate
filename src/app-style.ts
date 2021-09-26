@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components/macro'
-import { ArrowRight, Pause, Reset, Play } from 'ui/icons'
+import { ButtonDefault } from 'ui/button-default'
+import { ArrowRight, Pause, Reset, Play, Settings } from 'ui/icons'
 
 export const Main = styled.main`${({ theme }) => css`
   background: ${theme.colors.background};
@@ -35,6 +36,35 @@ export const Main = styled.main`${({ theme }) => css`
     justify-content: center;
   }
 `}`
+
+export const SettingsButton = styled(ButtonDefault)`${({ theme }) => css`
+  background: transparent;
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+
+  &:focus {
+    outline-offset: 0.1rem;
+  }
+
+  &:focus-visible {
+    outline-offset: 0.1rem;
+  }
+
+  @media (min-width: ${theme.breakpoints.forTabletLandscapeUp}) {
+    &:hover {
+      background: transparent;
+
+      ${SettingsIcon} {
+        color: ${theme.colors.primary};
+      }
+    }
+  }
+`}`
+
+export const SettingsIcon = styled(Settings)`
+  color: ${({ theme }) => theme.colors.white}
+`
 
 export const Divider = styled.div`${({ theme }) => css`
   display: none;
