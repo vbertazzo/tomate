@@ -58,4 +58,4 @@ $ yarn start
 
 ## 📝 License
 
-This project is [MIT](https://github.com/vbertazzo/b-academy-markee-app/blob/main/LICENSE) licensed.
+This project is [MIT](https://github.com/vbertazzo/tomate/blob/main/LICENSE) licensed.
