@@ -84,4 +84,9 @@ export const Input = styled.input`${({ theme }) => css`
   }
 `}`
 
+export const Error = styled.p`
+  color: ${({ theme }) => theme.colors.secondary};
+  font-size: 1.5rem;
+`
+
 export const SaveIcon = styled(Save)``

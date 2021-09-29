@@ -11,6 +11,7 @@ type SettingsProps = {
 export function Settings ({ onSave }: SettingsProps) {
   const [workDuration, setWorkDuration] = useState(25)
   const [breakDuration, setBreakDuration] = useState(10)
+  const [error, setError] = useState({ active: false, message: '' })
 
   const minDurationInSeconds = 1
   const maxDurationInSeconds = 999
@@ -28,9 +29,22 @@ export function Settings ({ onSave }: SettingsProps) {
   }
 
   const handleSave = () => {
+    if (workDuration <= 0 || breakDuration <= 0) {
+      setError({
+        active: true,
+        message: 'Please, enter values greater than zero.',
+      })
+
+      return
+    }
+
     onSave({
       work: workDuration * 60,
       break: breakDuration * 60,
+    })
+    setError({
+      active: false,
+      message: '',
     })
   }
 
@@ -70,6 +84,8 @@ export function Settings ({ onSave }: SettingsProps) {
           <span>minutes</span>
         </S.Fieldset>
       </S.Configuration>
+
+      {error.active && <S.Error>{error.message}</S.Error>}
 
       <ButtonDefault onClick={handleSave}>
         <S.SaveIcon aria-hidden='true' focusable='false' />
