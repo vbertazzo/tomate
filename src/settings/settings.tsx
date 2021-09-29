@@ -13,26 +13,25 @@ export function Settings ({ onSave }: SettingsProps) {
   const [breakDuration, setBreakDuration] = useState(10)
 
   const minDurationInSeconds = 1
-  const maxDurationInSeconds = 1440
+  const maxDurationInSeconds = 999
 
-  const handleWorkInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const duration = +e.target.value
-
-    if (duration >= minDurationInSeconds && duration <= maxDurationInSeconds) {
-      setWorkDuration(+e.target.value)
+  const handleInputChange = (type: Category) => (e: ChangeEvent<HTMLInputElement>) => {
+    const types = {
+      work: setWorkDuration,
+      break: setBreakDuration,
     }
-  }
+    const duration = e.target.value.replace(/\D/g, '')
 
-  const handleBreakInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const duration = +e.target.value
-
-    if (duration >= minDurationInSeconds && duration <= maxDurationInSeconds) {
-      setBreakDuration(+e.target.value)
+    if (duration.length <= 3) {
+      types[type](+duration)
     }
   }
 
   const handleSave = () => {
-    onSave({ work: workDuration * 60, break: breakDuration * 60 })
+    onSave({
+      work: workDuration * 60,
+      break: breakDuration * 60,
+    })
   }
 
   return createPortal(
@@ -52,7 +51,7 @@ export function Settings ({ onSave }: SettingsProps) {
             autoFocus
             max={maxDurationInSeconds}
             min={minDurationInSeconds}
-            onChange={handleWorkInputChange}
+            onChange={handleInputChange('work')}
             type='number'
             value={workDuration}
           />
@@ -64,7 +63,7 @@ export function Settings ({ onSave }: SettingsProps) {
           <S.Input
             max={maxDurationInSeconds}
             min={minDurationInSeconds}
-            onChange={handleBreakInputChange}
+            onChange={handleInputChange('break')}
             type='number'
             value={breakDuration}
           />
