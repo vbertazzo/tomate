@@ -3,6 +3,7 @@ import { Fragment, useEffect, useMemo } from 'react'
 import { useActivity } from 'resources/activity/use-activity'
 import { useTimer } from 'resources/timer/use-timer'
 import { useModal } from 'resources/settings/use-modal'
+import { Category } from 'resources/activity/types'
 import { ButtonDefault } from 'ui/button-default'
 import { Settings } from 'settings'
 import audio from 'resources/audios/notification.mp3'
@@ -44,7 +45,7 @@ export function App () {
     setTimerDuration(currentActivity.durationInSeconds)
   }, [currentActivity, setTimerDuration])
 
-  const handleSave = (config: { work: number, break: number }) => {
+  const handleSave = (config: Record<Category, number>) => {
     generateActivities(config)
     resetTimer(currentActivity.durationInSeconds)
     hideModal()
@@ -52,7 +53,8 @@ export function App () {
 
   return (
     <S.Main>
-      {isModalVisible && <Settings onSave={handleSave} />}
+      {isModalVisible &&
+        <Settings onSave={handleSave} activities={nextActivities} />}
 
       <S.SettingsButton onClick={showModal} aria-labelledby='settings-label'>
         <S.SettingsIcon aria-hidden='true' focusable='false' />

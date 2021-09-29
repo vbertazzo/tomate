@@ -1,20 +1,31 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { Category } from 'resources/activity/types'
+import { Activity, Category } from 'resources/activity/types'
 import { ButtonDefault } from 'ui/button-default'
 import * as S from './settings-style'
 
 type SettingsProps = {
   onSave: (config: Record<Category, number>) => void
+  activities: Activity[]
 }
 
-export function Settings ({ onSave }: SettingsProps) {
+export function Settings ({
+  onSave,
+  activities,
+}: SettingsProps) {
   const [workDuration, setWorkDuration] = useState(25)
   const [breakDuration, setBreakDuration] = useState(10)
   const [error, setError] = useState({ active: false, message: '' })
 
   const minDurationInSeconds = 1
   const maxDurationInSeconds = 999
+  const maxInputDigits = 3
+
+  useEffect(() => {
+    const [breakActivity, workActivity] = activities
+    setWorkDuration(workActivity.durationInSeconds / 60)
+    setBreakDuration(breakActivity.durationInSeconds / 60)
+  }, [activities])
 
   const handleInputChange = (type: Category) => (e: ChangeEvent<HTMLInputElement>) => {
     const types = {
@@ -23,7 +34,7 @@ export function Settings ({ onSave }: SettingsProps) {
     }
     const duration = e.target.value.replace(/\D/g, '')
 
-    if (duration.length <= 3) {
+    if (duration.length <= maxInputDigits) {
       types[type](+duration)
     }
   }

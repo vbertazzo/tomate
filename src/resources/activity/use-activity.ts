@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { Activity } from './types'
+import { Activity, Category } from './types'
 
 export function useActivity () {
   const defaultActivities: Activity[] = [
@@ -29,13 +29,14 @@ export function useActivity () {
     moveToNextActivity()
   }, [currentActivity])
 
-  const generateActivities = (config: { work: number, break: number }) => {
-    setActivities(activities => activities.map(activity => {
-      return {
-        ...activity,
-        durationInSeconds: activity.category === 'work' ? config.work : config.break,
-      }
-    }))
+  const generateActivities = (config: Record<Category, number>) => {
+    const newSchedule: Activity[] = [
+      { id: 1, category: 'work', durationInSeconds: config.work, isComplete: false },
+      { id: 2, category: 'break', durationInSeconds: config.break, isComplete: false },
+      { id: 3, category: 'work', durationInSeconds: config.work, isComplete: false },
+      { id: 4, category: 'break', durationInSeconds: config.break, isComplete: false },
+    ]
+    setActivities(newSchedule)
   }
 
   const markActivityComplete = useCallback(() => {
