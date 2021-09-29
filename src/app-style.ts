@@ -4,7 +4,7 @@ import { ArrowRight, Pause, Reset, Play, Settings } from 'ui/icons'
 
 export const Main = styled.main`${({ theme }) => css`
   background: ${theme.colors.background};
-  min-height: 100vh;
+  min-height: 100%;
   padding: clamp(1rem, 5vw, 2.4rem);
 
   display: grid;

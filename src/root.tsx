@@ -22,11 +22,17 @@ const GlobalStyle = createGlobalStyle`${({ theme }) => css`
 
   html {
     font-size: 62.5%;
+    height: 100%;
   }
 
   body {
+    color: ${theme.colors.white};
     font-family: 'Roboto', sans-serif;
     font-size: 1.6rem;
-    color: ${theme.colors.white}
+    height: 100%;
+  }
+
+  [data-js="app"] {
+    height: 100%;
   }
 `}`
