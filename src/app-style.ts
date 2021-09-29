@@ -146,6 +146,7 @@ export const ActivityItem = styled.li`
 export const ArrowRightIcon = styled(ArrowRight)`
   height: clamp(2rem, 5vw, 3.2rem);
   width: clamp(2rem, 5vw, 3.2rem);
+  stroke: ${({ theme }) => theme.colors.secondary};
 `
 
 export const ActivityItemTime = styled.p`
