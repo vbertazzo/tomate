@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Activity, Category } from 'resources/activity/types'
 import { ButtonDefault } from 'ui/button-default'
@@ -13,19 +13,13 @@ export function Settings ({
   onSave,
   activities,
 }: SettingsProps) {
-  const [workDuration, setWorkDuration] = useState(25)
-  const [breakDuration, setBreakDuration] = useState(10)
+  const [workDuration, setWorkDuration] = useState(activities[1].durationInSeconds / 60)
+  const [breakDuration, setBreakDuration] = useState(activities[0].durationInSeconds / 60)
   const [error, setError] = useState({ active: false, message: '' })
 
   const minDurationInSeconds = 1
   const maxDurationInSeconds = 999
   const maxInputDigits = 3
-
-  useEffect(() => {
-    const [breakActivity, workActivity] = activities
-    setWorkDuration(workActivity.durationInSeconds / 60)
-    setBreakDuration(breakActivity.durationInSeconds / 60)
-  }, [activities])
 
   const handleInputChange = (type: Category) => (e: ChangeEvent<HTMLInputElement>) => {
     const types = {
