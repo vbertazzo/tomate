@@ -67,6 +67,7 @@ export const Input = styled.input`${({ theme }) => css`
   border-bottom: solid 2px ${theme.colors.primary};
   color: ${theme.colors.white};
   font-size: 1.8rem;
+  max-width: 8rem;
   padding: 1rem;
   text-align: center;
 
