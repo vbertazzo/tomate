@@ -15,14 +15,15 @@ export const Wrapper = styled.section`${({ theme }) => css`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4rem;
+  gap: clamp(2rem, 5vh, 4rem);
 
   @media (min-width: ${theme.breakpoints.forTabletLandscapeUp}) {
     border: solid 1px ${theme.colors.primary};
     border-radius: 4rem;
+    height: 58.4rem;
     left: 50%;
-    max-width: max-content;
-    padding: 6rem;
+    max-width: fit-content;
+    padding: 2rem 6rem;
     top: 50%;
     transform: translate(-50%, -50%);
   }
