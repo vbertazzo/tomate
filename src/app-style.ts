@@ -109,8 +109,8 @@ export const Schedule = styled.section`
 
 export const ScheduleHeader = styled.header`
   border-bottom: 1px solid ${({ theme }) => theme.colors.white};
-  width: max(50%, 24rem);
   padding-bottom: clamp(0.8rem, 5vw, 1.2rem);
+  width: clamp(233px, 65vw, 350px);
 `
 
 export const ScheduleTitle = styled.h3`${({ theme }) => css`
